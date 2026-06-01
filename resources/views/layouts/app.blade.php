@@ -126,5 +126,28 @@
         window.addEventListener('categorySaved', function () { alert('Kategori tersimpan'); });
     </script>
     @livewireScripts
+    <script>
+        // Bridge: forward browser-dispatched events to Livewire server listeners
+        document.addEventListener('livewire:load', function () {
+            const forwardEvents = ['supplierSaved','productSaved','categorySaved','transactionSaved','transactionFailed','openSupplierForm','openCategoryForm','editProduct'];
+            forwardEvents.forEach(function (ev) {
+                window.addEventListener(ev, function (e) {
+                    try {
+                        // If event detail is an array, spread as params; if object or primitive, pass as single arg
+                        const d = e && e.detail !== undefined ? e.detail : null;
+                        if (Array.isArray(d)) {
+                            Livewire.emit(ev, ...d);
+                        } else if (d !== null) {
+                            Livewire.emit(ev, d);
+                        } else {
+                            Livewire.emit(ev);
+                        }
+                    } catch (err) {
+                        console.warn('Livewire bridge forward failed for', ev, err);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
