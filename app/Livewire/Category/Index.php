@@ -16,7 +16,7 @@ class Index extends Component
     {
         if (! Auth::check() || ! Auth::user()->isAdmin()) abort(403);
         Category::findOrFail($id)->delete();
-        $this->emitSelf('categorySaved');
+        $this->emit('categorySaved');
     }
 
     public function openForm($id = null)

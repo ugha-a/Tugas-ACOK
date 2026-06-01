@@ -20,7 +20,7 @@ class Index extends Component
         }
 
         Product::findOrFail($id)->delete();
-        $this->emitSelf('productSaved');
+        $this->emit('productSaved');
     }
 
     public function openEdit(int $id)

@@ -16,7 +16,7 @@ class Index extends Component
     {
         if (! Auth::check() || ! Auth::user()->isAdmin()) abort(403);
         Supplier::findOrFail($id)->delete();
-        $this->emitSelf('supplierSaved');
+        $this->emit('supplierSaved');
     }
 
     public function openForm($id = null)
