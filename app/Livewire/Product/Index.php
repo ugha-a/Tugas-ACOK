@@ -25,7 +25,7 @@ class Index extends Component
 
     public function openEdit(int $id)
     {
-        $this->dispatch('editProduct', $id);
+        $this->dispatch('openProductForm', $id);
     }
 
     public function render()

@@ -7,7 +7,7 @@
         </div>
         <div>
             @if(auth()->check() && auth()->user()->isAdmin())
-                <button onclick="window.location.href='{{ route('products.form') }}'" class="bg-blue-600 text-white px-3 py-2 rounded">Buat Produk</button>
+                <button wire:click.prevent="$dispatch('openProductForm')" class="bg-blue-600 text-white px-3 py-2 rounded">Buat Produk</button>
             @endif
         </div>
     </div>
@@ -34,4 +34,6 @@
     </div>
 
     <div class="mt-4">{{ $products->links() }}</div>
+
+    <livewire:product.form />
 </div>

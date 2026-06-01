@@ -23,7 +23,6 @@ Route::middleware(['web'])->group(function () {
         Route::get('/dashboard', function () { return view('pages.dashboard'); })->name('dashboard');
 
         Route::get('/products', function () { return view('pages.products'); })->name('products.index');
-        Route::get('/products/form', ProductForm::class)->name('products.form');
 
         Route::get('/categories', function () { return view('pages.categories'); })->name('categories.index');
         Route::get('/categories/form', \App\Livewire\Category\Form::class)->name('categories.form');

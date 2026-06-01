@@ -13,28 +13,35 @@ class Form extends Component
     public array $form = [];
 
     public bool $isEdit = false;
+    public bool $open = false;
 
-    protected $listeners = ['editProduct' => 'loadForEdit'];
+    protected $listeners = ['openProductForm' => 'open'];
 
     public function mount()
     {
         $this->resetForm();
     }
 
-    public function loadForEdit(int $id)
+    public function open($id = null)
     {
-        $product = Product::findOrFail($id);
-        $this->isEdit = true;
-        $this->form = [
-            'id' => $product->id,
-            'category_id' => $product->category_id,
-            'supplier_id' => $product->supplier_id,
-            'code' => $product->code,
-            'name' => $product->name,
-            'price' => (float) $product->price,
-            'stock' => $product->stock,
-            'min_stock' => $product->min_stock,
-        ];
+        $this->resetValidation();
+        if ($id) {
+            $product = Product::findOrFail($id);
+            $this->isEdit = true;
+            $this->form = [
+                'id' => $product->id,
+                'category_id' => $product->category_id,
+                'supplier_id' => $product->supplier_id,
+                'code' => $product->code,
+                'name' => $product->name,
+                'price' => (float) $product->price,
+                'stock' => $product->stock,
+                'min_stock' => $product->min_stock,
+            ];
+        } else {
+            $this->resetForm();
+        }
+        $this->open = true;
     }
 
     public function save()
@@ -73,6 +80,7 @@ class Form extends Component
         }
 
         $this->dispatch('productSaved');
+        $this->open = false;
         $this->resetForm();
     }
 
@@ -93,6 +101,6 @@ class Form extends Component
 
     public function render()
     {
-        return view('livewire.product.form')->layout('layouts.app');
+        return view('livewire.product.form');
     }
 }
