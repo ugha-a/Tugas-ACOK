@@ -16,12 +16,12 @@ class Index extends Component
     {
         if (! Auth::check() || ! Auth::user()->isAdmin()) abort(403);
         Supplier::findOrFail($id)->delete();
-        $this->emit('supplierSaved');
+        $this->dispatch('supplierSaved');
     }
 
     public function openForm($id = null)
     {
-        $this->emit('openSupplierForm', $id);
+        $this->dispatch('openSupplierForm', $id);
     }
 
     public function render()

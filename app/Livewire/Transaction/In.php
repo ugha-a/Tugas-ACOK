@@ -70,7 +70,7 @@ class In extends Component
 
             DB::commit();
 
-            $this->emit('transactionSaved');
+            $this->dispatch('transactionSaved');
             $this->form = [
                 'type' => 'in',
                 'supplier_id' => null,

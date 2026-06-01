@@ -16,12 +16,12 @@ class Index extends Component
     {
         if (! Auth::check() || ! Auth::user()->isAdmin()) abort(403);
         Category::findOrFail($id)->delete();
-        $this->emit('categorySaved');
+        $this->dispatch('categorySaved');
     }
 
     public function openForm($id = null)
     {
-        $this->emit('openCategoryForm', $id);
+        $this->dispatch('openCategoryForm', $id);
     }
 
     public function render()

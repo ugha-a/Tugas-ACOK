@@ -59,7 +59,7 @@ class Form extends Component
             Product::create($data);
         }
 
-        $this->emit('productSaved');
+        $this->dispatch('productSaved');
         $this->resetForm();
     }
 

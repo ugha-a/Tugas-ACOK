@@ -71,7 +71,7 @@ class Out extends Component
 
             DB::commit();
 
-            $this->emit('transactionSaved');
+            $this->dispatch('transactionSaved');
             $this->form = [
                 'type' => 'out',
                 'supplier_id' => null,

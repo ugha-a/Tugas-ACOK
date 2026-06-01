@@ -57,7 +57,7 @@ class Form extends Component
             Supplier::create($data);
         }
 
-        $this->emit('supplierSaved');
+        $this->dispatch('supplierSaved');
         $this->resetForm();
         $this->open = false;
     }

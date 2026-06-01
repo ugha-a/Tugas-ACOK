@@ -20,12 +20,12 @@ class Index extends Component
         }
 
         Product::findOrFail($id)->delete();
-        $this->emit('productSaved');
+        $this->dispatch('productSaved');
     }
 
     public function openEdit(int $id)
     {
-        $this->emit('editProduct', $id);
+        $this->dispatch('editProduct', $id);
     }
 
     public function render()

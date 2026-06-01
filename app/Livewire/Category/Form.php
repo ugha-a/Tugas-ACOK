@@ -55,7 +55,7 @@ class Form extends Component
             Category::create($data);
         }
 
-        $this->emit('categorySaved');
+        $this->dispatch('categorySaved');
         $this->resetForm();
         $this->open = false;
     }
