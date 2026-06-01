@@ -23,6 +23,11 @@ class Index extends Component
         $this->emitSelf('productSaved');
     }
 
+    public function openEdit(int $id)
+    {
+        $this->emit('editProduct', $id);
+    }
+
     public function render()
     {
         $query = Product::with(['category','supplier'])->latest();

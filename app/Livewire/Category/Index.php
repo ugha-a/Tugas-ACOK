@@ -19,6 +19,11 @@ class Index extends Component
         $this->emitSelf('categorySaved');
     }
 
+    public function openForm($id = null)
+    {
+        $this->emit('openCategoryForm', $id);
+    }
+
     public function render()
     {
         $query = Category::query();

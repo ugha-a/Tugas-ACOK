@@ -7,7 +7,7 @@
             <input wire:model.debounce.300ms="search" type="text" placeholder="Cari kategori..." class="border rounded px-2 py-1" />
         </div>
         @if(auth()->check() && auth()->user()->isAdmin())
-            <button wire:click.prevent="$emit('openCategoryForm')" class="btn-primary inline-flex items-center gap-2">
+            <button wire:click.prevent="openForm" class="btn-primary inline-flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
                 Tambah Kategori
             </button>
@@ -21,7 +21,7 @@
                 <div class="text-sm text-gray-600">{{ $category->slug }}</div>
                 <div class="mt-3 flex space-x-2">
                     @if(auth()->check() && auth()->user()->isAdmin())
-                        <button wire:click.prevent="$emit('openCategoryForm', {{ $category->id }})" class="px-2 py-1 bg-yellow-500 text-white rounded inline-flex items-center gap-1">
+                        <button wire:click.prevent="openForm({{ $category->id }})" class="px-2 py-1 bg-yellow-500 text-white rounded inline-flex items-center gap-1">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M9 11l6-6 3 3-6 6H9v-3z"/></svg>
                             Edit
                         </button>

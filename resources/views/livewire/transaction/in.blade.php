@@ -21,7 +21,7 @@
         <div class="mt-4">
             <h4 class="font-medium">Detail Produk</h4>
             <div class="space-y-2 mt-2">
-                @foreach($form->lines as $i => $line)
+                @foreach($form['lines'] as $i => $line)
                     <div class="grid grid-cols-4 gap-2 items-end">
                         <div>
                             <select wire:model="form.lines.{{ $i }}.product_id" class="w-full border px-2 py-1">

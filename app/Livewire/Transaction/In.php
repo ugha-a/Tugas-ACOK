@@ -13,43 +13,51 @@ use Illuminate\Support\Facades\DB;
 
 class In extends Component
 {
-    public TransactionFormObject $form;
+    public array $form = [];
 
     public function mount()
     {
-        $this->form = new TransactionFormObject();
-        $this->form->type = 'in';
+        $this->form = [
+            'type' => 'in',
+            'supplier_id' => null,
+            'destination' => null,
+            'transaction_date' => now()->toDateString(),
+            'lines' => [],
+        ];
     }
 
     public function addLine()
     {
-        $this->form->lines[] = ['product_id' => null, 'quantity' => 1, 'price_at_transaction' => 0];
+        $this->form['lines'][] = ['product_id' => null, 'quantity' => 1, 'price_at_transaction' => 0];
     }
 
     public function removeLine($index)
     {
-        unset($this->form->lines[$index]);
-        $this->form->lines = array_values($this->form->lines);
+        unset($this->form['lines'][$index]);
+        $this->form['lines'] = array_values($this->form['lines']);
     }
 
     public function save()
     {
         if (! Auth::check()) abort(403);
 
-        $this->validate($this->form->rules());
+        $formObject = new TransactionFormObject();
+        $formObject->type = 'in';
+        $rules = $formObject->rules();
+        \Illuminate\Support\Facades\Validator::make($this->form, $rules)->validate();
 
         DB::beginTransaction();
         try {
             $trx = Transaction::create([
                 'user_id' => Auth::id(),
-                'supplier_id' => $this->form->supplier_id,
+                'supplier_id' => $this->form['supplier_id'],
                 'type' => 'in',
                 'reference_number' => 'TRX-'.now()->format('Ymd').'-'.mt_rand(1000,9999),
-                'transaction_date' => $this->form->transaction_date,
-                'total_items' => array_sum(array_column($this->form->lines, 'quantity')),
+                'transaction_date' => $this->form['transaction_date'],
+                'total_items' => array_sum(array_column($this->form['lines'], 'quantity')),
             ]);
 
-            foreach ($this->form->lines as $line) {
+            foreach ($this->form['lines'] as $line) {
                 TransactionDetail::create([
                     'transaction_id' => $trx->id,
                     'product_id' => $line['product_id'],
@@ -58,13 +66,18 @@ class In extends Component
                 ]);
             }
 
-            app(StockMovementService::class)->process($trx, $this->form->lines);
+            app(StockMovementService::class)->process($trx, $this->form['lines']);
 
             DB::commit();
 
             $this->emit('transactionSaved');
-            $this->form = new TransactionFormObject();
-            $this->form->type = 'in';
+            $this->form = [
+                'type' => 'in',
+                'supplier_id' => null,
+                'destination' => null,
+                'transaction_date' => now()->toDateString(),
+                'lines' => [],
+            ];
         } catch (\Throwable $e) {
             DB::rollBack();
             $this->addError('save', $e->getMessage());

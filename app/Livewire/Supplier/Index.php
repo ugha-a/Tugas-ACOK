@@ -19,6 +19,11 @@ class Index extends Component
         $this->emitSelf('supplierSaved');
     }
 
+    public function openForm($id = null)
+    {
+        $this->emit('openSupplierForm', $id);
+    }
+
     public function render()
     {
         $query = Supplier::query();

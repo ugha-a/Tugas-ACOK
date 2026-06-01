@@ -17,7 +17,7 @@
         <div class="mt-3">
             <h4 class="font-medium">Detail Produk</h4>
             <div class="space-y-2 mt-2">
-                @foreach($form->lines as $i => $line)
+                @foreach($form['lines'] as $i => $line)
                     <div class="flex space-x-2 items-center">
                         <select wire:model="form.lines.{{ $i }}.product_id" class="border px-2 py-1 w-2/3">
                             <option value="">-- pilih produk --</option>
