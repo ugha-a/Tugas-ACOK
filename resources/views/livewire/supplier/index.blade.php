@@ -26,9 +26,8 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M9 11l6-6 3 3-6 6H9v-3z"/></svg>
                             Edit
                         </button>
-                        <button wire:click="delete({{ $supplier->id }})" class="btn-danger inline-flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 7h12M9 7v10a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V7"/><path stroke-linecap="round" stroke-linejoin="round" d="M10 11v6M14 11v6M4 7h16"/></svg>
-                            Hapus
+                        <button wire:click.prevent="delete({{ $supplier->id }})" class="inline-flex items-center justify-center w-8 h-8 rounded bg-red-500 text-white" title="Hapus" aria-label="Hapus">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 7h12M9 7v10a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V7"/><path stroke-linecap="round" stroke-linejoin="round" d="M10 11v6M14 11v6M4 7h16"/></svg>
                         </button>
                     @endif
                 </div>

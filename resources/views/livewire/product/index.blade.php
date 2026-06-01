@@ -24,7 +24,9 @@
                 @if(auth()->check() && auth()->user()->isAdmin())
                     <div class="mt-3 flex space-x-2">
                         <button wire:click="$emit('editProduct', {{ $product->id }})" class="px-2 py-1 bg-yellow-400 rounded text-sm">Edit</button>
-                        <button wire:click.prevent="delete({{ $product->id }})" class="px-2 py-1 bg-red-500 rounded text-sm text-white">Hapus</button>
+                        <button wire:click.prevent="delete({{ $product->id }})" class="inline-flex items-center justify-center w-8 h-8 rounded bg-red-500 text-white" title="Hapus" aria-label="Hapus">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 7h12M9 7v10a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V7"/><path stroke-linecap="round" stroke-linejoin="round" d="M10 11v6M14 11v6M4 7h16"/></svg>
+                        </button>
                     </div>
                 @endif
             </div>
