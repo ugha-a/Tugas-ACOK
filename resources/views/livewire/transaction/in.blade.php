@@ -57,3 +57,22 @@
         </div>
     </form>
 </div>
+
+<div class="mt-6 max-w-3xl">
+    <h4 class="font-semibold mb-2">Riwayat Transaksi Masuk (Terbaru)</h4>
+    <div class="space-y-2">
+        @foreach(\App\Models\Transaction::where('type','in')->latest()->take(10)->get() as $t)
+            <div class="bg-white p-3 rounded border">
+                <div class="flex justify-between">
+                    <div>{{ $t->reference_number }} — {{ $t->transaction_date->format('Y-m-d') }}</div>
+                    <div class="text-sm text-gray-600">Items: {{ $t->total_items }}</div>
+                </div>
+                <div class="text-xs text-gray-600 mt-1">
+                    @foreach($t->details as $d)
+                        <div>{{ $d->product->name ?? 'Produk dihapus' }} × {{ $d->quantity }}</div>
+                    @endforeach
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>
