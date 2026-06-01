@@ -109,6 +109,22 @@
             </main>
         </div>
     </div>
+    <script>
+        // Simple notification listeners for Livewire-dispatched events
+        window.addEventListener('transactionSaved', function (e) {
+            alert('Transaksi berhasil disimpan');
+        });
+
+        window.addEventListener('transactionFailed', function (e) {
+            const msg = e && e.detail && e.detail.message ? e.detail.message : 'Terjadi kesalahan';
+            alert('Transaksi gagal: ' + msg);
+        });
+
+        // Generic saved notifications for CRUD modals
+        window.addEventListener('supplierSaved', function () { alert('Supplier tersimpan'); });
+        window.addEventListener('productSaved', function () { alert('Produk tersimpan'); });
+        window.addEventListener('categorySaved', function () { alert('Kategori tersimpan'); });
+    </script>
     @livewireScripts
 </body>
 </html>

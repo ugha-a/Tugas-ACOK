@@ -33,5 +33,6 @@ Route::middleware(['web'])->group(function () {
 
         Route::get('/transactions/in', function () { return view('pages.transactions.in'); })->name('transactions.in');
         Route::get('/transactions/out', function () { return view('pages.transactions.out'); })->name('transactions.out');
+        Route::get('/transactions', function () { return view('pages.transactions.index'); })->name('transactions.index');
     });
 });
