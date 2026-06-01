@@ -74,6 +74,6 @@ class Out extends Component
 
     public function render()
     {
-        return view('livewire.transaction.out');
+        return view('livewire.transaction.out')->layout('layouts.app');
     }
 }

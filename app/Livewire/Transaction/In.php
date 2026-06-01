@@ -73,6 +73,6 @@ class In extends Component
 
     public function render()
     {
-        return view('livewire.transaction.in');
+        return view('livewire.transaction.in')->layout('layouts.app');
     }
 }

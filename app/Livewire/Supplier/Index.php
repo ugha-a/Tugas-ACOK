@@ -24,6 +24,6 @@ class Index extends Component
         $query = Supplier::query();
         if ($this->search) $query->where('name', 'like', "%{$this->search}%");
         $suppliers = $query->orderBy('name')->paginate(12);
-        return view('livewire.supplier.index', compact('suppliers'));
+        return view('livewire.supplier.index', compact('suppliers'))->layout('layouts.app');
     }
 }

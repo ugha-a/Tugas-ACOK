@@ -24,6 +24,6 @@ class Index extends Component
         $query = Category::query();
         if ($this->search) $query->where('name', 'like', "%{$this->search}%");
         $categories = $query->orderBy('name')->paginate(12);
-        return view('livewire.category.index', compact('categories'));
+        return view('livewire.category.index', compact('categories'))->layout('layouts.app');
     }
 }
