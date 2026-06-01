@@ -20,18 +20,18 @@ Route::middleware(['web'])->group(function () {
     Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
     Route::middleware(['auth'])->group(function () {
-        Route::get('/dashboard', Dashboard::class)->name('dashboard');
+        Route::get('/dashboard', function () { return view('pages.dashboard'); })->name('dashboard');
 
-        Route::get('/products', ProductIndex::class)->name('products.index');
+        Route::get('/products', function () { return view('pages.products'); })->name('products.index');
         Route::get('/products/form', ProductForm::class)->name('products.form');
 
-        Route::get('/categories', \App\Livewire\Category\Index::class)->name('categories.index');
+        Route::get('/categories', function () { return view('pages.categories'); })->name('categories.index');
         Route::get('/categories/form', \App\Livewire\Category\Form::class)->name('categories.form');
 
-        Route::get('/suppliers', \App\Livewire\Supplier\Index::class)->name('suppliers.index');
+        Route::get('/suppliers', function () { return view('pages.suppliers'); })->name('suppliers.index');
         Route::get('/suppliers/form', \App\Livewire\Supplier\Form::class)->name('suppliers.form');
 
-        Route::get('/transactions/in', TransactionIn::class)->name('transactions.in');
-        Route::get('/transactions/out', TransactionOut::class)->name('transactions.out');
+        Route::get('/transactions/in', function () { return view('pages.transactions.in'); })->name('transactions.in');
+        Route::get('/transactions/out', function () { return view('pages.transactions.out'); })->name('transactions.out');
     });
 });
